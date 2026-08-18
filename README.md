@@ -175,7 +175,7 @@ python app.py
 ## 🌐 Deployment
 
 The application is deployed using Render for reliable and scalable cloud hosting.
-
+Live Demo: [https://your-render-url.onrender.com](https://mindscore-ai-2-8h0j.onrender.com)
 ---
 
 ## 🔮 Future Enhancements
