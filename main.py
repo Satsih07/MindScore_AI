@@ -45,9 +45,9 @@ class PredictionResponse(BaseModel):
 
 
 @app.get('/')
-def greet():
-    return {"Project": "MindScore-AI",
-            "status":"Running Successfully"}
+@app.get("/")
+def home():
+    return FileResponse("index.html")
 
 
 @app.post('/predict', response_model=PredictionResponse) #6.77777
