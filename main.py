@@ -5,7 +5,6 @@ from fastapi import FastAPI
 from pydantic import BaseModel, Field
 from typing import Literal
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi import FastAPI
 from fastapi.responses import FileResponse
 from fastapi.staticfiles import StaticFiles
  
@@ -129,7 +128,6 @@ def generate_recommendations(data: StudentData, score: float) -> list[str]:
  
 
 
-app = FastAPI()
 
 @app.get("/")
 def home():
