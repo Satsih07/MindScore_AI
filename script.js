@@ -1,7 +1,7 @@
 (() => {
   "use strict";
 
-  const API_BASE = "https://mindscore-ai-wj35.onrender.com";
+  const API_BASE = "https://mindscore-ai-g1s0.onrender.com";
 
   const form = document.getElementById("predict-form");
   const submitBtn = document.getElementById("submit-btn");
