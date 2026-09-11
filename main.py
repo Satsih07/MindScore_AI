@@ -1,4 +1,4 @@
-
+from ollama import chat
 import joblib
 import pandas as pd
 from fastapi import FastAPI
@@ -124,7 +124,69 @@ def generate_recommendations(data: StudentData, score: float) -> list[str]:
     return tips
  
  
- 
+def generate_llm_recommendations(data: StudentData, score: float) -> list[str]:
+
+    prompt = f"""
+You are a supportive student wellness assistant.
+
+The student's machine learning predicted mental health score is {score}.
+
+Student information:
+
+Age: {data.age}
+Gender: {data.gender}
+Country: {data.country}
+Academic Level: {data.academic_level}
+Most Used Platform: {data.most_used_platform}
+Purpose of Use: {data.purpose_of_use}
+Average Daily Social Media Usage: {data.avg_daily_usage_hours} hours
+Daily Phone Unlocks: {data.daily_unlocks}
+Study Hours: {data.study_hours} hours/day
+Physical Activity: {data.physical_activity_hours} hours/day
+Sleep: {data.sleep_hours_per_night} hours/night
+Stress Level: {data.stress_level}
+
+Based on this information, generate 4 practical and personalized recommendations.
+
+Focus on:
+- sleep
+- study habits
+- stress management
+- physical activity
+- healthy technology usage
+
+Rules:
+- Be supportive and non-judgmental.
+- Do not diagnose any mental health condition.
+- Do not claim the prediction is a medical diagnosis.
+- Give practical actions the student can realistically follow.
+- Avoid generic advice when possible.
+- Each recommendation should be concise.
+- Return ONLY a numbered list of recommendations.
+"""
+
+    response = chat(
+        model="mistral",
+        messages=[
+            {
+                "role": "user",
+                "content": prompt
+            }
+        ]
+    )
+
+    text = response["message"]["content"]
+    print("========== MISTRAL RESPONSE ==========")
+    print(text)
+    print("======================================")
+
+    recommendations = [
+        line.strip()
+        for line in text.split("\n")
+        if line.strip()
+    ]
+
+    return recommendations
  
 
 
@@ -167,7 +229,7 @@ def predict(data: StudentData):
  
    prediction = model.predict(input_row)[0] #6.77
    score = round(float(prediction), 2)
-   recommendations = generate_recommendations(data, score)
+   recommendations = generate_llm_recommendations(data, score)
  
    return PredictionResponse(
         predicted_mental_health_score=score,
