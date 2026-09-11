@@ -159,10 +159,13 @@ Rules:
 - Be supportive and non-judgmental.
 - Do not diagnose any mental health condition.
 - Do not claim the prediction is a medical diagnosis.
-- Give practical actions the student can realistically follow.
-- Avoid generic advice when possible.
-- Each recommendation should be concise.
-- Return ONLY a numbered list of recommendations.
+- Give practical and personalized advice.
+- Generate exactly 4 recommendations.
+- Each recommendation must be ONE short sentence.
+- Maximum 15 words per recommendation.
+- Do not provide explanations, examples, reasons, or extra details.
+- Do not use headings or sub-points.
+- Return ONLY a numbered list.
 """
 
     response = chat(
